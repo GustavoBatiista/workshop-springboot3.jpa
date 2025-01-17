@@ -2,7 +2,8 @@ package com.educandoweb.course.entities;
 
 import java.io.Serializable;
 
-import com.educandoweb.course.entities.pk.OrderItenPk;
+import com.educandoweb.course.entities.pk.OrderItemPk;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -11,29 +12,30 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrderIten implements Serializable {
+public class OrderItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private OrderItenPk id;
+    private OrderItemPk id = new OrderItemPk();
 
     private Integer quantity;
     private Double price;
     
     
-    public OrderIten() {
+    public OrderItem() {
     }
 
 
-    public OrderIten(Order order, Product product, Integer quantity, Double price) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
         this.quantity = quantity;
         this.price = price;
     }
-
+    
+    @JsonIgnore
     public Order getOrder(){
-        return getOrder();
+        return id.getOrder();
     }
 
     public void setOrder(Order order){
@@ -41,7 +43,7 @@ public class OrderIten implements Serializable {
     }
 
     public Product getProduct(){
-        return getProduct();
+        return id.getProduct();
     }
 
     public void setProduct(Product product){
@@ -86,7 +88,7 @@ public class OrderIten implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        OrderIten other = (OrderIten) obj;
+        OrderItem other = (OrderItem) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

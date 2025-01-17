@@ -10,7 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Embeddable
-public class OrderItenPk implements Serializable {
+public class OrderItemPk implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne
@@ -49,7 +49,7 @@ public class OrderItenPk implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        OrderItenPk other = (OrderItenPk) obj;
+        OrderItemPk other = (OrderItemPk) obj;
         if (order == null) {
             if (other.order != null)
                 return false;
